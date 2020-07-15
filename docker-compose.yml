@@ -1,0 +1,7 @@
+version: "3.2"
+services:
+  # MongoDB
+  mongodb:
+    image: mongo:4.2.8
+    ports:
+      - 27017:27017
