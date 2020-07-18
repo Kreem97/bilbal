@@ -14,11 +14,33 @@ const schema = convict({
         env: 'PORT',
         arg: 'port'
     },
-    logDir: {
-        doc: 'Directory to write log files to.',
-        format: String,
-        default: "./logs",
-        env: 'LOG_DIR'
+    logger: {
+        logLevel: {
+            doc: 'Log Level.',
+            format: String,
+            default: "debug",
+            env: 'LOG_LEVEL'
+        },
+        logDir: {
+            doc: 'Directory to write log files to.',
+            format: String,
+            default: "./logs",
+            env: 'LOG_DIR'
+        }
+    },
+    mongo: {
+        connectionString: {
+            doc: 'Mongo Connection String',
+            format: String,
+            default: 'mongodb://localhost:27017',
+            env: 'MONGO_CONNSTR'
+        },
+        name: {
+            doc: 'Mongo Database name',
+            format: String,
+            default: 'sampleDatabase',
+            env: 'MONGO_DBNAME'
+        }
     }
 });
 
@@ -29,7 +51,14 @@ schema.validate({allowed: 'strict'});
 
 const config = {
     port: schema.get('port'),
-    logDir: schema.get('logDir')
+    logger: {
+        logLevel: schema.get('logger.logLevel'),
+        logDir: schema.get('logger.logDir')
+    },
+    mongo: {
+        connectionString: schema.get('mongo.connectionString'),
+        name: schema.get('mongo.name')
+    }
 }
 
 module.exports = config;

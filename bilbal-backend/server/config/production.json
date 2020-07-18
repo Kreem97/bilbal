@@ -1,4 +1,11 @@
 {
   "port": 443,
-  "logDir": "./logs"
+  "logger": {
+    "logLevel": "info",
+    "logDir": "./logs"
+  },
+  "mongo": {
+    "connectionString": "mongodb://localhost:27017",
+    "name": "sampleDatabase"
+  }
 }

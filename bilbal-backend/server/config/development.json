@@ -1,4 +1,11 @@
 {
   "port": 8080,
-  "logDir": "./logs"
+  "logger": {
+    "logLevel": "debug",
+    "logDir": "./logs"
+  },
+  "mongo": {
+    "connectionString": "mongodb://localhost:27017",
+    "name": "sampleDatabase"
+  }
 }
