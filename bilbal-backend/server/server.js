@@ -1,6 +1,8 @@
+const path = require('path');
 const express = require('express');
 const http = require('http');
 const winston = require('winston');
+const config = require('./config');
 const controllers = require('./controllers');
 
 const app = express();
@@ -12,8 +14,8 @@ const logger = winston.createLogger({
         winston.format.prettyPrint()
     ),
     transports: [
-        new winston.transports.File({ filename: 'error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'combined.log' })
+        new winston.transports.File({ filename: path.join(config.logDir, 'error.log'), level: 'error' }),
+        new winston.transports.File({ filename: path.join(config.logDir, 'combined.log') })
     ]
 });
 
@@ -26,7 +28,7 @@ app.use('/', controllers.sample.getRequest(depInj));
 
 logger.info("Starting server");
 const server = http.createServer(app);
-server.listen(process.env.PORT || '8080');
-logger.info("Server started and listening on port " + (process.env.PORT || '8080'));
+server.listen(config.port);
+logger.info("Server started and listening on port " + config.port);
 
 module.exports = app;
